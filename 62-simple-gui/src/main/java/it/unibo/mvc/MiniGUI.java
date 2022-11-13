@@ -73,6 +73,7 @@ public class MiniGUI {
          */
         frame.setVisible(true);
     }
+    
 
     /**
      * Launches the application.
