@@ -8,8 +8,8 @@ import java.util.Objects;
  * Implementation of {@link MonthSorter}.
  */
 public final class MonthSorterNested implements MonthSorter {
-    private static final Comparator<String> BY_DAYS = new sortByDays();
-    private static final Comparator<String> BY_ORDER = new sortByOrder();
+    private static final Comparator<String> BY_DAYS = new SortByDays();
+    private static final Comparator<String> BY_ORDER = new SortByMonthOrder();
 
     @Override
     public Comparator<String> sortByDays() {
@@ -64,6 +64,22 @@ public final class MonthSorterNested implements MonthSorter {
                 return match;
             }
 
+        }
+    }
+
+    private static class SortByDays implements Comparator<String> {
+        @Override
+        public int compare(final String s1, final String s2) {
+            final var month1 = Month.fromString(s1);
+            final var month2 = Month.fromString(s2);
+            return Integer.compare(month1.days, month2.days);
+        }
+    }
+
+    private static class SortByMonthOrder implements Comparator<String> {
+        @Override
+        public int compare(final String s1, final String s2) {
+            return Month.fromString(s1).compareTo(Month.fromString(s2));
         }
     }
 }
